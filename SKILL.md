@@ -53,6 +53,7 @@ scenes:
     # still: "docs/figure.png"                        # (c) a static image (chart, slide) — Ken-Burns-free, held for the narration
     hold: 2                                           # extra seconds after the last action
     speed: 1                                          # pre-speed the source (8 = a slow crawl shown at 8×)
+    scale: 2560                                       # per-scene downscale width (screen recordings); font: 28 = caption px for this scene
 ```
 
 Rules that made the clips good:

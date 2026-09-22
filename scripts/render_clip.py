@@ -137,13 +137,13 @@ def source_for(scene, cache):
     sys.exit(f"scene {scene['id']}: needs one of url | video | still")
 
 
-def fit_and_mux(video, audio, caption, out_mp4, ready=0.0, speed=1.0, still=False):
+def fit_and_mux(video, audio, caption, out_mp4, ready=0.0, speed=1.0, still=False, scale=None, font_px=None):
     va = duration(audio) + 0.6
     font = os.environ.get("DEMO_FONTFILE", "/System/Library/Fonts/SFNSMono.ttf")
     capf = out_mp4.with_suffix(".caption.txt"); capf.write_text(caption or "")
-    draw = (f"drawtext=textfile='{capf}':fontcolor=white:fontsize={os.environ.get('DEMO_FONT', '22')}:box=1:boxcolor=black@0.6:boxborderw=12:"
+    draw = (f"drawtext=textfile='{capf}':fontcolor=white:fontsize={font_px or os.environ.get('DEMO_FONT', '22')}:box=1:boxcolor=black@0.6:boxborderw=12:"
             f"x=36:y=h-110:fontfile={font}") if caption else "null"
-    sc = os.environ.get("DEMO_SCALE"); pre = f"scale={sc}:-2," if sc else ""
+    sc = scale or os.environ.get("DEMO_SCALE"); pre = f"scale={sc}:-2," if sc else ""
     if still:
         vf = f"[0:v]{pre}scale=trunc(iw/2)*2:trunc(ih/2)*2,{draw}[v]"
         cmd = ["ffmpeg", "-y", "-loglevel", "error", "-loop", "1", "-framerate", "30", "-i", str(video), "-i", str(audio), "-filter_complex", vf]
@@ -176,7 +176,7 @@ def main():
         print(f"[{sc['id']}] tts…", end=" ", flush=True); a = tts(sc["narration"], voice, instr, cache); print(f"{duration(a):.1f}s · capture…", end=" ", flush=True)
         v, ready, still = source_for(sc, cache)
         print(("still" if still else f"{duration(v):.1f}s (ready {ready:.0f}s)") + " · mux…", end=" ", flush=True)
-        fit_and_mux(v, a, sc.get("caption", ""), seg, ready, float(sc.get("speed", 1)), still); parts.append(seg)
+        fit_and_mux(v, a, sc.get("caption", ""), seg, ready, float(sc.get("speed", 1)), still, sc.get("scale"), sc.get("font")); parts.append(seg)
         subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-ss", "0.5", "-i", str(seg), "-frames:v", "1", str(out / f"_{spec['clip']}_{sc['id']}.png")])
         print("ok")
     lst = cache / f"concat_{spec['clip']}.txt"; lst.write_text("".join(f"file '{p}'\n" for p in parts))

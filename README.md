@@ -32,7 +32,10 @@ with the project-specific parts removed and the lessons written down.
 
 ## See it
 
-`examples/self-demo/narrated-demo-in-75s.mov` — the skill demonstrating itself (91 s), made with the skill: [storyboard](examples/self-demo/storyboard.md) · [spec](examples/self-demo/clips.yaml). Scenes 1–4 are terminal recordings, 5 is a still, 6 is a browser scene.
+[![the skill demonstrating itself — 91 s](examples/self-demo/poster.png)](examples/self-demo/narrated-demo-in-75s.mp4)
+
+**[▶ narrated-demo-in-75s.mp4](examples/self-demo/narrated-demo-in-75s.mp4)** (91 s, 6.8 MB) — the skill demonstrating itself, made with the skill:
+[storyboard](examples/self-demo/storyboard.md) · [spec](examples/self-demo/clips.yaml). Scenes 1–4 are terminal recordings, 5 is a still, 6 is a browser scene.
 
 ## What you get
 

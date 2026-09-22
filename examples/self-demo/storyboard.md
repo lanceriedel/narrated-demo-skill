@@ -11,5 +11,5 @@
 | 5 | review | a review still (`out/_mini_s1.png`) | read the stills before saying done; one sentence → one scene → 20 s | the still |
 | 6 | share | github.com/lanceriedel/narrated-demo-skill | clone → setup.sh → ask; MIT | the README |
 
-Voice: onyx · tone: calm tech-demo · rendered 91 s (narration ran long on 2 and 4; fine for the audience).
-Lesson logged during review: an inline `export TTS_API_KEY=…` in the recorded pane put the key on screen — caught by the still, re-recorded with the key from the shell env.
+Voice: onyx · tone: calm tech-demo · rendered 99 s (narration ran long on 2 and 4; fine for the audience).
+Lessons logged during review: (1) an inline `export TTS_API_KEY=…` in the recorded pane put the key on screen — caught by the still, re-recorded with the key from the shell env; (2) the first cut recorded the whole screen — window title, tab bar, sidebar, other windows — which showed far more than the demo needed; re-recorded with `--rect` on the pane only, neutral prompt and neutral paged text.

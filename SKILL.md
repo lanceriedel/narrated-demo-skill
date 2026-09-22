@@ -33,6 +33,7 @@ Then **propose the storyboard as a table** (scene · what's on screen · 1-line 
 
 ```yaml
 clip: 1-setup                 # output name → out/1-setup.mov
+size: 1440x900                # optional: common frame for all scenes (fit + pad) — set it when mixing screen and browser scenes
 voice: onyx
 instructions: "Calm, clear, confident tech-demo narration. Medium pace, natural pauses at the dots. Slight emphasis on numbers."
 scenes:
@@ -68,10 +69,13 @@ Rules that made the clips good:
 
 - **Browser (`url` + `actions`)** — Playwright Chromium, 1440×900, headless, records webm. Needs a Node project with `@playwright/test` and
   Chromium installed; set `PW_REPO=/path/to/that/project` (default: the skill's own `pw/` — run `scripts/setup.sh` once to create it).
-- **Screen / terminal (`video`)** — `scripts/record_screen.sh <scene> <seconds> -- <command that performs the action>`: starts
+- **Screen / terminal (`video`)** — `scripts/record_screen.sh <scene> <seconds> [--rect x,y,w,h] -- <command…>`: starts
   `screencapture -V`, runs your command, writes `marks.json` with `started` (ms) when the command signals the payoff by printing `MARK`.
   **Gotcha:** `screencapture -V` only advances when pixels change; a static terminal pane freezes the recording. Keep something ticking
   (a 1 Hz clock line) or use `show_file.sh` which pages a file with a clock. Downscale wide captures with `DEMO_SCALE=2560`.
+  **Privacy:** record a rectangle (`--rect`, in points; `screencapture -R`) so only the pane you mean is captured — no window title, tab bar,
+  sidebar, dock, notifications or background windows. Before posting, read every review still and ask: does anything on screen identify
+  an employer, a host, an internal URL, another person? Neutralise the text you page (`show_file.sh`) — it is the demo, not your real files.
 - **Still (`still`)** — a PNG/JPG held for the narration; use for charts, tables, a slide.
 - **Pre-recorded (`video: file.mov`)** — with `ready: <seconds>` in the scene.
 

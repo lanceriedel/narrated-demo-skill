@@ -1,4 +1,5 @@
 clip: narrated-demo-in-75s
+size: 1440x900
 voice: onyx
 instructions: "Calm, clear, confident tech-demo narration. Medium pace, natural pauses at the dots. Slight emphasis on numbers."
 scenes:
@@ -7,28 +8,24 @@ scenes:
     narration: "You're in the middle of building something with an agent. You say: make a ninety-second demo of this. That's the whole brief. The agent already has the context; it only needs to know who it's for."
     video: "cache/cr_s1"
     ready: 5
-    scale: 2560
-    font: 28
+        font: 30
   - id: s2-interview
     caption: "2 · Five questions decide the storyboard"
     narration: "Five questions, one message. Who is it for and how long do they have. What should they believe afterwards. What must be on screen. What is the live moment. Voice and tone. The answers become a storyboard table you approve before anything renders."
     video: "cache/cr_s2"
     ready: 5
-    scale: 2560
-    font: 28
+        font: 30
   - id: s3-spec
     caption: "3 · A scene spec — narration, caption, one capture"
     narration: "Each scene is a few lines of text: the narration, a caption, and one thing to capture — a browser with actions, a screen recording, or a still. An action like wait marks the payoff, so the cut opens on the moment that matters."
     video: "cache/cr_s3"
     ready: 5
-    scale: 2560
-    font: 28
+        font: 30
   - id: s4-render
     caption: "4 · Render · TTS → capture → fit → caption → concat"
     narration: "Render. Text to speech, cached by hash. Capture. Fit the video to the audio — start just before the payoff, freeze the last frame if the narration runs long. Burn the caption. Join the scenes. One movie file, ready to post."
     video: "cache/cr_s4"
-    scale: 2560
-    font: 28
+        font: 30
   - id: s5-review
     caption: "5 · Review the stills before you say done"
     narration: "Before anyone calls it done, the opening frame of every scene is written out. Read them. Is the caption legible, is the payoff on screen, is anything sensitive visible. Change one sentence, re-render one scene, twenty seconds."

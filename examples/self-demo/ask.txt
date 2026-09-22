@@ -1,0 +1,16 @@
+
+  pi · lookbook-research (main)                                                    claude · narrated-demo skill loaded
+
+  › make a 90-second demo video of this for Daniel — he has a minute
+
+
+
+  Five questions, then I'll draft the storyboard from what we've built today:
+
+    1. Who is it for, and how long do they have?          → Daniel, 90 s
+    2. What should they believe after watching?            → "one graph, four evidences, pre-built"
+    3. What must be on screen?                             → bento canvas · the how-it-was-built page
+    4. What is the live moment?                            → typing a brand and watching the walk land
+    5. Voice and tone?                                     → onyx · calm tech-demo
+
+  Storyboard (6 scenes) below — say ok and I render.

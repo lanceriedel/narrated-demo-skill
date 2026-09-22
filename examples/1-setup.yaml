@@ -1,0 +1,26 @@
+# Example: a 5-scene product clip (~70 s). Two capture types: a browser UI with actions, and a static document.
+clip: 1-setup
+voice: onyx
+instructions: "Calm, clear, confident tech-demo narration for a senior audience. Medium pace, natural pauses at the dots. Slight emphasis on numbers."
+scenes:
+  - id: s1-thesis
+    caption: "One graph · four kinds of evidence"
+    narration: "Taste is not a chatbot problem. It is a graph problem. What people buy together, what merchants curate together, the concepts merchants name, and what the open web's curators say. One graph, four evidences, pre-built."
+    still: "docs/figures/thesis.png"
+  - id: s2-live
+    caption: "Live · a seed, a walk, under a second"
+    narration: "Type a brand. The service resolves it, walks two hops over a pre-built graph, and grounds every neighbour in the catalog. Twenty brands, one hundred and seventy four edges, in about a second."
+    url: "http://127.0.0.1:4300/#mode=purchase"
+    actions:
+      - fill: ["#prompt", "Acne Studios"]
+      - press: ["#prompt", "Enter"]
+      - wait: ".layer-chip"
+      - click: "button:has-text('fit')"
+    hold: 3
+  - id: s3-document
+    caption: "How it was built · find · join · clean · reuse"
+    narration: "Four steps, all inside the warehouse. Find the eight tables that matter. Join them into one cross-merchant view. Clean, so every edge is trustworthy. Reuse what already exists rather than build it again."
+    url: "file:///Users/you/docs/how-it-was-built.html"
+    actions:
+      - scroll_to: "#find"
+    hold: 2

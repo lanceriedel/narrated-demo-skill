@@ -3,7 +3,7 @@
 
   render_clip.py clips/<name>.yaml [--only s2,s3] [--voice onyx] [--out DIR]
 
-Per scene: TTS (gpt-4o-mini-tts via $TTS_URL, default proxy.shopify.ai; key $PI_PROXY_API_KEY or $OPENAI_API_KEY) → mp3, cached by text hash;
+Per scene: TTS (gpt-4o-mini-tts via $TTS_URL, default api.openai.com; key $TTS_API_KEY or $OPENAI_API_KEY) → mp3, cached by text hash;
 capture (browser via Playwright | pre-recorded video | still image) → video; ffmpeg starts the video ~2.5 s before the payoff (`ready`),
 pads the last frame if narration is longer, trims if shorter, burns a lower-third caption, muxes; scenes concatenated → out/<clip>.mov.
 Also writes out/_<clip>_<scene>.png (opening frame of each scene) for review.
@@ -16,7 +16,7 @@ from pathlib import Path
 SKILL = Path(__file__).resolve().parents[1]
 CWD = Path.cwd()
 PW_REPO = Path(os.environ.get("PW_REPO", str(SKILL / "pw")))
-TTS_URL = os.environ.get("TTS_URL", "https://proxy.shopify.ai/v1/audio/speech")
+TTS_URL = os.environ.get("TTS_URL", "https://api.openai.com/v1/audio/speech")
 TTS_MODEL = os.environ.get("TTS_MODEL", "gpt-4o-mini-tts")
 
 
@@ -66,7 +66,7 @@ def tts(text, voice, instructions, cache):
     h = hashlib.sha1(f"{TTS_MODEL}|{voice}|{instructions}|{text}".encode()).hexdigest()[:16]
     mp3 = cache / f"tts_{h}.mp3"
     if mp3.exists(): return mp3
-    key = os.environ.get("PI_PROXY_API_KEY") or os.environ.get("OPENAI_API_KEY") or sys.exit("set PI_PROXY_API_KEY (or OPENAI_API_KEY + TTS_URL)")
+    key = os.environ.get("TTS_API_KEY") or os.environ.get("OPENAI_API_KEY") or sys.exit("set OPENAI_API_KEY (or TTS_API_KEY + TTS_URL for a compatible proxy)")
     body = json.dumps({"model": TTS_MODEL, "voice": voice, "input": text, "instructions": instructions, "format": "mp3"})
     r = subprocess.run(["curl", "-s", "-m", "120", "-o", str(mp3), "-w", "%{http_code}", TTS_URL, "-H", f"Authorization: Bearer {key}",
                         "-H", "Content-Type: application/json", "-d", body], capture_output=True, text=True)

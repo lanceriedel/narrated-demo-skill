@@ -2,3 +2,4 @@ pw/
 cache/
 out/
 .demo/
+__pycache__/

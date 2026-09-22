@@ -77,7 +77,7 @@ Rules that made the clips good:
 ## 4. Render, review, post
 
 ```bash
-export PI_PROXY_API_KEY=…                   # TTS via proxy.shopify.ai (gpt-4o-mini-tts); or OPENAI_API_KEY + TTS_URL for the public API
+export OPENAI_API_KEY=…                     # TTS (gpt-4o-mini-tts); or TTS_URL=https://<proxy>/v1/audio/speech TTS_API_KEY=… for a compatible proxy
 scripts/render_clip.py clips/1-setup.yaml            # full clip → out/1-setup.mov (+ out/_1-setup_<scene>.png stills)
 scripts/render_clip.py clips/1-setup.yaml --only s2  # re-render one scene, re-concat
 DEMO_FONT=26 scripts/render_clip.py …                # caption size (22 for 1440 px, 26–30 for 2560 px sources)

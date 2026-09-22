@@ -6,7 +6,7 @@ ok(){ printf '  \033[32m✓\033[0m %s\n' "$1"; }; miss(){ printf '  \033[31m✗\
 command -v ffmpeg >/dev/null && ok "ffmpeg $(ffmpeg -version | head -1 | awk '{print $3}')" || miss "ffmpeg — brew install ffmpeg"
 command -v node >/dev/null && ok "node $(node -v)" || miss "node — brew install node"
 command -v screencapture >/dev/null && ok "screencapture (macOS)" || miss "screencapture — screen scenes need macOS"
-[ -n "${PI_PROXY_API_KEY:-}${OPENAI_API_KEY:-}" ] && ok "TTS key present" || miss "TTS key — export PI_PROXY_API_KEY (proxy.shopify.ai) or OPENAI_API_KEY + TTS_URL=https://api.openai.com/v1/audio/speech"
+[ -n "${TTS_API_KEY:-}${OPENAI_API_KEY:-}" ] && ok "TTS key present" || miss "TTS key — export OPENAI_API_KEY, or TTS_API_KEY + TTS_URL=https://<proxy>/v1/audio/speech"
 PW=${PW_REPO:-$S/pw}
 if [ -d "$PW/node_modules/@playwright/test" ]; then ok "Playwright at $PW"; else
   echo "  installing Playwright into $PW (one-time, ~2 min)…"; mkdir -p "$PW"; cd "$PW"

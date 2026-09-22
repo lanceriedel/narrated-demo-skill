@@ -53,7 +53,7 @@ scene after you change a sentence.
                                                                                                                  └─► review stills
 ```
 
-- **TTS** — `gpt-4o-mini-tts` (OpenAI-compatible endpoint; defaults to Shopify's `proxy.shopify.ai`, works with `api.openai.com`). Cached by
+- **TTS** — `gpt-4o-mini-tts` on the OpenAI audio API (or any OpenAI-compatible endpoint via `TTS_URL`, e.g. a company proxy). Cached by
   a hash of *voice + instructions + text*, so unchanged sentences never re-synthesise.
 - **Capture** — browser scenes are driven by Playwright (headless Chromium, 1440×900, records webm); screen/terminal scenes use macOS
   `screencapture -V`; stills are held for the length of the narration.
@@ -70,7 +70,7 @@ Requirements: macOS (for screen scenes; browser and still scenes work anywhere),
 ```bash
 git clone https://github.com/lanceriedel/narrated-demo-skill ~/.agents/skills/narrated-demo
 ~/.agents/skills/narrated-demo/scripts/setup.sh        # checks ffmpeg/node/key; installs Playwright + Chromium into the skill's own pw/
-export PI_PROXY_API_KEY=…                                # Shopify proxy; or OPENAI_API_KEY + TTS_URL=https://api.openai.com/v1/audio/speech
+export OPENAI_API_KEY=…                                  # or, behind a company proxy: TTS_URL=https://<proxy>/v1/audio/speech TTS_API_KEY=…
 ```
 
 - **pi** discovers `~/.agents/skills/*/SKILL.md` automatically. Use `/skill:narrated-demo` or just ask.
@@ -251,7 +251,7 @@ examples/storyboard.md   # template
 |---|---|---|
 | `[s2] wait failed: … Timeout 45000ms` and the scene starts on an empty page | the app was slow/busy, or the selector changed | check the selector in the app's HTML; re-run `--only s2` when the app is idle |
 | `no video for scene … is PW_REPO set up?` | Playwright/Chromium missing | `scripts/setup.sh`, or `PW_REPO=/path/to/project-with-playwright` |
-| `TTS HTTP 400/401` | key missing/expired, or model not on that endpoint | check `PI_PROXY_API_KEY` / `OPENAI_API_KEY`; set `TTS_MODEL` / `TTS_URL` |
+| `TTS HTTP 400/401` | key missing/expired, or model not on that endpoint | check `OPENAI_API_KEY` (or `TTS_API_KEY`); set `TTS_MODEL` / `TTS_URL` for a proxy |
 | screen recording is 2 s long / never finishes | static screen — `screencapture -V` only advances on pixel change | keep a clock ticking (`show_file.sh`) or produce output continuously |
 | caption tiny / huge | source resolution ≠ 1440 px | `DEMO_FONT=26–30` for 2560-px sources; `DEMO_SCALE=2560` to downscale 5K captures |
 | narration cuts off | segment is `audio + 0.6 s`; a trailing "hold" is video-only | end narration with a full stop; add `hold: 2` |
@@ -277,5 +277,5 @@ Deliberately boring: **python3 stdlib + ffmpeg + one Node script for Playwright*
 MIT (see LICENSE): take it, change it. Useful additions would be a Linux screen recorder (`wf-recorder`/`ffmpeg x11grab`) behind
 `record_screen.sh`, a `zoom` action for browser scenes, and per-scene background music ducked under narration. Keep the spec small.
 
-Origin: built for a taste-graph demo at Shopify (five clips: setup, edges ×2, how-it-was-built, control-room). The control-room clip is where
+Origin: built for a taste-graph demo (five clips: setup, edges ×2, how-it-was-built, control-room). The control-room clip is where
 the "static pane freezes screencapture" lesson and the 1 Hz clock trick came from.
